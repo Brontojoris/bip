@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A912C0902F6D1D240079EF30 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A912C08F2F6D1D240079EF30 /* README.md */; };
 		A980252E2F6D125C00E81C84 /* BipWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = A980250E2F6D125800E81C84 /* BipWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A912C08F2F6D1D240079EF30 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A98024E02F6D120E00E81C84 /* Bip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A98024ED2F6D121000E81C84 /* BipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A98024F72F6D121000E81C84 /* BipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +162,7 @@
 				A980251D2F6D125C00E81C84 /* BipWatch Watch AppTests */,
 				A98025272F6D125C00E81C84 /* BipWatch Watch AppUITests */,
 				A98024E12F6D120E00E81C84 /* Products */,
+				A912C08F2F6D1D240079EF30 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -380,6 +383,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A912C0902F6D1D240079EF30 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
