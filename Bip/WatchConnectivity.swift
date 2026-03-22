@@ -14,8 +14,8 @@ public class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDele
 
 	private override init() {
 		super.init()
-		// Defer activation to avoid blocking app startup
-		DispatchQueue.main.async {
+		// Activate on a background queue to avoid blocking app launch
+		DispatchQueue.global(qos: .utility).async {
 			self.activateIfNeeded()
 		}
 	}

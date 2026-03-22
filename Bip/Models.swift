@@ -189,9 +189,12 @@ public class BipStore: ObservableObject {
 
 	public init() {
 		defaults = UserDefaults(suiteName: APP_GROUP_ID) ?? .standard
-		checkVersion()
-		load()
-		if configs.isEmpty { addSampleConfigs() }
+		// Defer loading to avoid blocking app launch with synchronous I/O
+		DispatchQueue.main.async {
+			self.checkVersion()
+			self.load()
+			if self.configs.isEmpty { self.addSampleConfigs() }
+		}
 	}
 	
 	private func checkVersion() {
