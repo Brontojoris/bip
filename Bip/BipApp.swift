@@ -26,8 +26,11 @@ struct BipApp: App {
             default: break
             }
         }
-        engine.onBip = { state in
+        engine.onBip = { state, config in
             connectivity.sendSessionState(state)
+            // Trigger sound and haptic when a bip occurs
+            AudioHapticManager.shared.playSound(config.soundID)
+            AudioHapticManager.shared.triggerHaptic(config.hapticType)
         }
     }
 }

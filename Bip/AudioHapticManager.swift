@@ -10,19 +10,39 @@ import UIKit
 public class AudioHapticManager: ObservableObject {
     public static let shared = AudioHapticManager()
     private var audioPlayer: AVAudioPlayer?
+    
+    #if !os(watchOS)
+    private let notificationGenerator = UINotificationFeedbackGenerator()
+    private let impactGeneratorLight = UIImpactFeedbackGenerator(style: .light)
+    private let impactGeneratorMedium = UIImpactFeedbackGenerator(style: .medium)
+    private let impactGeneratorHeavy = UIImpactFeedbackGenerator(style: .heavy)
+    #endif
 
-    private init() {}
+    private init() {
+        #if !os(watchOS)
+        // Prepare generators for better performance
+        notificationGenerator.prepare()
+        impactGeneratorLight.prepare()
+        impactGeneratorMedium.prepare()
+        impactGeneratorHeavy.prepare()
+        #endif
+    }
 
     // MARK: - Play bip sound
     public func playSound(_ soundID: String) {
         guard let url = Bundle.main.url(forResource: soundID, withExtension: "wav") ??
-                        Bundle.main.url(forResource: soundID, withExtension: "caf") else { return }
+                        Bundle.main.url(forResource: soundID, withExtension: "caf") else {
+            print("⚠️ Sound file not found: \(soundID)")
+            return
+        }
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .mixWithOthers)
             try AVAudioSession.sharedInstance().setActive(true)
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.play()
-        } catch {}
+        } catch {
+            print("⚠️ Error playing sound: \(error.localizedDescription)")
+        }
     }
 
     // MARK: - Trigger haptic
@@ -51,15 +71,20 @@ public class AudioHapticManager: ObservableObject {
     private func triggerPhoneHaptic(_ type: BipHaptic) {
         switch type {
         case .success:
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            notificationGenerator.notificationOccurred(.success)
+            notificationGenerator.prepare()
         case .notification, .start:
-            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+            impactGeneratorHeavy.impactOccurred()
+            impactGeneratorHeavy.prepare()
         case .stop:
-            UINotificationFeedbackGenerator().notificationOccurred(.warning)
+            notificationGenerator.notificationOccurred(.warning)
+            notificationGenerator.prepare()
         case .retry:
-            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            impactGeneratorMedium.impactOccurred()
+            impactGeneratorMedium.prepare()
         case .click:
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            impactGeneratorLight.impactOccurred()
+            impactGeneratorLight.prepare()
         }
     }
     #endif

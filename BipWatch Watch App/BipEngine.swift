@@ -13,7 +13,7 @@ public class BipEngine: ObservableObject {
     private var timer: Timer?
     private var tickInterval: TimeInterval = 0.5
 
-    public var onBip: ((BipSessionState) -> Void)?
+    public var onBip: ((BipSessionState, BipTimerConfig) -> Void)?
     public var onComplete: (() -> Void)?
 
     public init() {}
@@ -91,7 +91,7 @@ public class BipEngine: ObservableObject {
                                  phaseLabel: state.currentPhaseLabel,
                                  cycleNumber: state.cycleCount + 1)
         state.bipLog.append(entry)
-        onBip?(state)
+        onBip?(state, config)
 
         // Move to next phase
         let nextIndex = state.currentPhaseIndex + 1
