@@ -13,6 +13,7 @@ This file is a list of ideas and improvements to be made to the Bip and BipWatch
 * [ ] When pressing the Skip button on the RunningView, the line segment in the graph looks bad. It should neatly complete the circle to make it clear to the user that the timer has progressed to the next phase.
 * [ ] Allow the user to swipe to delete the currently active timer.
 * [ ] Retain timer settings between app installs/upgrades.
+* [ ] When the Bip app is in the background, notification sounds and haptics aren't triggered
 
 | #   | TODO                                         | Complexity            |
 | --- |----------------------------------------------| --------------------- |
