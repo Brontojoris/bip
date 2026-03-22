@@ -7,12 +7,16 @@ struct SettingsView: View {
 	var body: some View {
 		Form {
 			Section("Defaults") {
-				Picker("Default sound", selection: $defaultSound) {
-					ForEach(AudioHapticManager.availableSounds, id: \.id) { s in
-						Text(s.name).tag(s.id)
+				NavigationLink {
+					SoundPickerView(selectedSound: $defaultSound)
+				} label: {
+					HStack {
+						Text("Default sound")
+						Spacer()
+						Text(AudioHapticManager.availableSounds.first(where: { $0.id == defaultSound })?.name ?? defaultSound)
+							.foregroundColor(.secondary)
 					}
 				}
-				.onChange(of: defaultSound) { AudioHapticManager.shared.playSound(defaultSound) }
 			}
 
 			Section("About") {

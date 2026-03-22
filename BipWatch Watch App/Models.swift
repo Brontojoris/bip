@@ -80,6 +80,8 @@ public struct BipSessionState: Codable {
 	public var totalRepeatCount: Int
 	public var bipLog: [BipLogEntry]
 	public var startedAt: Date?
+	public var soundID: String
+	public var hapticType: BipHaptic
 
 	public var timeRemaining: TimeInterval {
 		max(0, currentPhaseDuration - currentPhaseElapsed)
@@ -94,7 +96,7 @@ public struct BipSessionState: Codable {
 		BipSessionState(configID: UUID(), configName: "", isRunning: false, isPaused: false,
 						currentPhaseIndex: 0, currentPhaseLabel: "", currentPhaseElapsed: 0,
 						currentPhaseDuration: 0, cycleCount: 0, totalRepeatCount: 0,
-						bipLog: [], startedAt: nil)
+						bipLog: [], startedAt: nil, soundID: "Bip", hapticType: .notification)
 	}
 }
 
