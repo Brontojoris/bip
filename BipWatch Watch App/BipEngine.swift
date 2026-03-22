@@ -92,32 +92,40 @@ public class BipEngine: ObservableObject {
 		let entry = BipLogEntry(timestamp: Date(),
 								 phaseLabel: state.currentPhaseLabel,
 								 cycleNumber: state.cycleCount + 1)
-		state.bipLog.append(entry)
-		onBip?(state, config)
+
+		// Build new state as a local copy to trigger a single objectWillChange
+		var newState = state
+		newState.bipLog.append(entry)
 
 		// Move to next phase
 		let nextIndex = state.currentPhaseIndex + 1
 
 		if nextIndex < config.phases.count {
 			// Still phases left in this cycle
-			state.currentPhaseIndex = nextIndex
-			state.currentPhaseLabel = config.phases[nextIndex].label
-			state.currentPhaseDuration = config.phases[nextIndex].duration
-			state.currentPhaseElapsed = 0
+			newState.currentPhaseIndex = nextIndex
+			newState.currentPhaseLabel = config.phases[nextIndex].label
+			newState.currentPhaseDuration = config.phases[nextIndex].duration
+			newState.currentPhaseElapsed = 0
+			state = newState
+			onBip?(state, config)
 		} else {
 			// Completed a full cycle
-			state.cycleCount += 1
+			newState.cycleCount += 1
 			let infiniteRepeat = config.repeatCount == 0
-			let hasMoreCycles = state.cycleCount < config.repeatCount
+			let hasMoreCycles = newState.cycleCount < config.repeatCount
 
 			if infiniteRepeat || hasMoreCycles {
 				// Start next cycle
-				state.currentPhaseIndex = 0
-				state.currentPhaseLabel = config.phases[0].label
-				state.currentPhaseDuration = config.phases[0].duration
-				state.currentPhaseElapsed = 0
+				newState.currentPhaseIndex = 0
+				newState.currentPhaseLabel = config.phases[0].label
+				newState.currentPhaseDuration = config.phases[0].duration
+				newState.currentPhaseElapsed = 0
+				state = newState
+				onBip?(state, config)
 			} else {
 				// All done
+				state = newState
+				onBip?(state, config)
 				stop()
 				onComplete?()
 			}
