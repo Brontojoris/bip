@@ -53,6 +53,8 @@ phase complete? → advancePhase() → emit onBip callback → onComplete() when
 
 ## Critical Developer Workflows
 
+* **IMPORTANT** You MUST ONLY read, write, and delete files in the `/Users/joris/Workspace/Swift/Bip/` directory.
+
 ### Git Workflow
 
 * **Do not use worktrees** or submodules. If there is a conflict with the Claude Desktop or Claude CLI configuration, stop and ask the user before continuing.
