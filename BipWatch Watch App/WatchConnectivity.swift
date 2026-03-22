@@ -35,8 +35,15 @@ public class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDele
 
     // MARK: Send command from watch to phone
     public func sendCommand(_ command: String) {
-        guard WCSession.default.isReachable else { return }
-        WCSession.default.sendMessage([WatchMessage.command: command], replyHandler: nil)
+        guard WCSession.default.isReachable else {
+            // Queue command for delivery when phone becomes reachable
+            WCSession.default.transferUserInfo([WatchMessage.command: command])
+            return
+        }
+        WCSession.default.sendMessage([WatchMessage.command: command], replyHandler: nil) { error in
+            // Fallback to transferUserInfo if sendMessage fails
+            WCSession.default.transferUserInfo([WatchMessage.command: command])
+        }
     }
 
     // MARK: WCSessionDelegate
