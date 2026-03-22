@@ -49,7 +49,7 @@ phase complete? → advancePhase() → emit onBip callback → onComplete() when
 - **iOS:** Uses `UINotificationFeedbackGenerator` + `UIImpactFeedbackGenerator` (prepared on init for performance)
 - **watchOS:** Uses `WKHapticType` (limited selection: notification, start, stop, success, retry, click)
 
-**Sound playback:** Searches for sound files in Bundle (`bip-soft.wav`, `bip-bell.wav`, `bip-click.wav`) or falls back to haptic-only if missing.
+**Sound playback:** Searches for sound files in Bundle (`Bip.wav`, `Blep.wav`, `Bloop.wav`, `Bop.wav`, `Done.wav`, `Go.wav`, `Pew Pew.wav`, `Rest.wav`) or falls back to haptic-only if missing. Users pick sounds via `SoundPickerView`.
 
 ## Critical Developer Workflows
 
@@ -89,9 +89,10 @@ phase complete? → advancePhase() → emit onBip callback → onComplete() when
 
 ### SwiftUI Views Hierarchy
 
-- **HomeView:** Main list of saved configs; shows active running timer as top section
-- **ConfigureView:** Edit/create config (phases, name, sound/haptic settings) with advanced toggles
-- **RunningView:** Active timer display during countdown
+- **HomeView:** Main list of saved configs; shows active running timer as top section (includes `TimerRowView`, `RunningRowView` subviews)
+- **ConfigureView:** Edit/create config (phases, name, sound/haptic settings) with advanced toggles (includes `PhaseRowView` subview)
+- **RunningView:** Active timer display during countdown (includes `PhaseSequenceView`, `BipLogView`, `CircleButton` subviews)
+- **SoundPickerView:** Sound selection UI for choosing alert tones
 - **WatchSessionView:** Watch app main view (observes `connectivity.sessionState` for live updates)
 - **SettingsView:** Global app preferences
 
@@ -154,14 +155,14 @@ Requires `ComplicationController.swift`. Complication shows current phase label 
 | `BipEngine.swift` | Timer ticker logic | **Both targets** |
 | `WatchConnectivity.swift` | Phone ↔ watch messaging | **Both targets** |
 | `AudioHapticManager.swift` | Platform-specific sound/haptic (conditional compile) | **Both targets** |
-| `HomeView.swift`, `ConfigureView.swift`, `RunningView.swift`, `SettingsView.swift` | iOS UI | iOS only |
+| `HomeView.swift`, `ConfigureView.swift`, `RunningView.swift`, `SettingsView.swift`, `SoundPickerView.swift` | iOS UI | iOS only |
 | `WatchSessionView.swift`, `WatchHistoryView.swift` | watchOS UI | watchOS only |
 | `ComplicationController.swift` | Watch face complication | watchOS only |
 
 ## Key Constraints
 
-- **iOS 18.0+, watchOS 11.0+** (device OS versions may lag; check README for actual tested versions)
-- **Swift 5.9+** (Xcode 16+)
+- **iOS 18.6+, watchOS 11.6+** (tested on iPhone 13 Mini + Apple Watch Series 8)
+- **Swift 5.0+** (Xcode 16+)
 - **No background task scheduling yet** on iPhone (could use BGTaskScheduler for long-running sessions)
 - **No persistent activity/live update on watch** beyond WatchConnectivity (WKExtendedRuntimeSession optional for extended background)
 

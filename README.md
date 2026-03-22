@@ -30,8 +30,8 @@ I'm at the Gym. I want to do 3 sets of 10 reps. After my 10 reps, I want a rest 
 * The haptic tone should be configurable. I think there are some default ones? Maybe the user can choose and preview from a list?
 * The default phasing should be "Work" phase, "Rest" phase (ie two phases), and should repeat for ever.
 * But an advanced setting should let the user choose the total number of phases (ie 4 Work and 4 Rest phases, then stop)
-* A super advanced setting should let the user choose different time periods for each phase. 15 minutes Work, then 5 minute Rest, 20 minutes Work, then 2 minute Rest, etc.
-* I'm am open to using a different naming convention for the "Work" / "Restd" states. I actually don't think it's good at all, but it's just what popped into mind as I was writing this. Please suggest a better or range of better alternatives. Maybe the user could even pick their own labels for each phase like: "First Half", "Half Time", "Second Half", "Boil Water", "Cook Rice", "Print", "Clear Buildplate".
+* A super advanced setting should let the user choose different time periods for each phase. 15 minutes Work, then 5 minute Rest, 20 minutes Work, then 2 minutes Rest, etc.
+* I'm am open to using a different naming convention for the "Work" / "Rested" states. I actually don't think it's good at all, but it's just what popped into mind as I was writing this. Please suggest a better or range of better alternatives. Maybe the user could even pick their own labels for each phase like: "First Half", "Half Time", "Second Half", "Boil Water", "Cook Rice", "Print", "Clear Buildplate".
 * The timers should be configured from the Phone and can be stopped/started from the phone, but the user should be able to see a list of previous "Bips" and stop/start/monitor them from the watch.
 * The watch app should have a complication because Apps that have a complication on the active watch face will stay active in the Apple Watche's memory.
 
@@ -40,18 +40,18 @@ I'm at the Gym. I want to do 3 sets of 10 reps. After my 10 reps, I want a rest 
 ## Requirements
 
 - Xcode 16+
-- iOS deployment target: 18.0
-- watchOS deployment target: 11.0
+- iOS deployment target: 18.6
+- watchOS deployment target: 11.6
 - Tested on iPhone 13 Mini + Apple Watch Series 8
 
 ## Project Setup
 
 1. Open Xcode → File → New → Project
-2. Choose **iOS → App** template, name it **Bip**
-3. Add a **watchOS App** target: File → New → Target → Watch App for iOS App
+2. Choose **iOS → App** template, name it **Bip**
+3. Add a **watchOS App** target: File → New → Target → Watch App for iOS App
     - Name: BipWatch
     - Ensure “Include Notification Scene” is OFF
-4. Add an **App Group** capability to both targets:
+4. Add an **App Group** capability to both targets:
     - Signing & Capabilities → + Capability → App Groups
     - Group ID: group.com.yourname.bip (replace with your bundle prefix)
     - Update the APP_GROUP_ID constant in Models.swift accordingly
@@ -59,18 +59,23 @@ I'm at the Gym. I want to do 3 sets of 10 reps. After my 10 reps, I want a rest 
     - Shared/*.swift → add to BOTH targets (iOS + watchOS)
     - iOS/*.swift → iOS target only
     - watchOS/*.swift → watchOS target only
-6. In your watchOS target, enable **Background Modes**: Workout Processing
+6. In your watchOS target, enable **Background Modes**: Workout Processing
 7. Build & run on device (simulator haptics are limited)
 
 ## Sound Files
 
-Bip ships with 3 bundled tones. Add these short audio files (.wav or .caf) to your iOS target’s bundle:
+Bip ships with 8 bundled tones in `Bip/Sounds/` (included in both iOS and watchOS targets):
 
-- bip-soft.wav (gentle sine blip, ~80ms)
-- bip-bell.wav (small bell, ~200ms)
-- bip-click.wav (mechanical click, ~60ms)
+- Bip.wav
+- Blep.wav
+- Bloop.wav
+- Bop.wav
+- Done.wav
+- Go.wav
+- Pew Pew.wav
+- Rest.wav
 
-You can source free short tones from freesound.org or record your own. The app will fall back to UINotificationFeedbackGenerator if sounds are missing.
+Users can select their preferred sound via the SoundPickerView. The app falls back to haptic-only if sound files are missing.
 
 ## App Group ID
 
