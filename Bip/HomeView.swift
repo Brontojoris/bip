@@ -57,8 +57,9 @@ struct HomeView: View {
 						store.add(newConfig)
 					}
 				}
+				.presentationDragIndicator(.visible)
 			}
-			.sheet(item: $editingConfig) { config in
+			.fullScreenCover(item: $editingConfig) { config in
 				NavigationStack {
 					ConfigureView(config: config) { updated in
 						store.update(updated)

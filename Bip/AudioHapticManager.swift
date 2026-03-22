@@ -10,6 +10,7 @@ import UIKit
 public class AudioHapticManager: ObservableObject {
 	public static let shared = AudioHapticManager()
 	private var audioPlayer: AVAudioPlayer?
+	private var audioSessionConfigured = false
 	
 	#if !os(watchOS)
 	private let notificationGenerator = UINotificationFeedbackGenerator()
@@ -26,6 +27,20 @@ public class AudioHapticManager: ObservableObject {
 		impactGeneratorMedium.prepare()
 		impactGeneratorHeavy.prepare()
 		#endif
+		
+		// Configure audio session once at startup
+		configureAudioSession()
+	}
+	
+	private func configureAudioSession() {
+		guard !audioSessionConfigured else { return }
+		do {
+			try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .mixWithOthers)
+			try AVAudioSession.sharedInstance().setActive(true)
+			audioSessionConfigured = true
+		} catch {
+			print("⚠️ Error configuring audio session: \(error.localizedDescription)")
+		}
 	}
 
 	// MARK: - Play bip sound
@@ -36,8 +51,6 @@ public class AudioHapticManager: ObservableObject {
 			return
 		}
 		do {
-			try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .mixWithOthers)
-			try AVAudioSession.sharedInstance().setActive(true)
 			audioPlayer = try AVAudioPlayer(contentsOf: url)
 			audioPlayer?.play()
 		} catch {

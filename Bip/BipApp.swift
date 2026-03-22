@@ -12,12 +12,21 @@ struct BipApp: App {
 				.environmentObject(store)
 				.environmentObject(engine)
 				.environmentObject(connectivity)
-				.onAppear { setupEngine() }
+				.task {
+					setupCallbacks()
+				}
 		}
 	}
 
-	private func setupEngine() {
-		connectivity.onCommand = { [self] cmd in
+	private func setupCallbacks() {
+		// Set up callback to play sound and haptic when phases complete
+		engine.onBip = { [connectivity] state, config in
+			connectivity.sendSessionState(state)
+			AudioHapticManager.shared.playSound(config.soundID)
+			AudioHapticManager.shared.triggerHaptic(config.hapticType)
+		}
+		
+		connectivity.onCommand = { [engine] cmd in
 			switch cmd {
 			case WatchMessage.commandStop:  engine.stop()
 			case WatchMessage.commandSkip:  engine.skip()
@@ -25,13 +34,6 @@ struct BipApp: App {
 				if engine.state.isPaused { engine.resume() }
 			default: break
 			}
-		}
-		
-		// Set up callback to play sound and haptic when phases complete
-		engine.onBip = { state, config in
-			connectivity.sendSessionState(state)
-			AudioHapticManager.shared.playSound(config.soundID)
-			AudioHapticManager.shared.triggerHaptic(config.hapticType)
 		}
 	}
 }

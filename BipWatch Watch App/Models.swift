@@ -185,11 +185,22 @@ public class BipStore: ObservableObject {
 	@Published public var configs: [BipTimerConfig] = []
 
 	private let defaults: UserDefaults
+	private let configVersion = 2 // Increment to force reset
 
 	public init() {
 		defaults = UserDefaults(suiteName: APP_GROUP_ID) ?? .standard
+		checkVersion()
 		load()
 		if configs.isEmpty { addSampleConfigs() }
+	}
+	
+	private func checkVersion() {
+		let savedVersion = defaults.integer(forKey: "configVersion")
+		if savedVersion < configVersion {
+			// Clear old data and force regeneration
+			defaults.removeObject(forKey: "bipConfigs")
+			defaults.set(configVersion, forKey: "configVersion")
+		}
 	}
 
 	public func save() {

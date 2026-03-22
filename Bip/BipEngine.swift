@@ -78,6 +78,7 @@ public class BipEngine: ObservableObject {
 
 	private func tick() {
 		guard state.isRunning, !state.isPaused else { return }
+		_ = state.currentPhaseElapsed
 		state.currentPhaseElapsed += tickInterval
 
 		if state.currentPhaseElapsed >= state.currentPhaseDuration {
