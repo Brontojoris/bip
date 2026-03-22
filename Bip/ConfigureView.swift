@@ -6,6 +6,9 @@ struct ConfigureView: View {
 	private let onSave: (BipTimerConfig) -> Void
 	@State private var showingAdvanced = false
 
+	@AppStorage("defaultSound") private var defaultSound = "Bip"
+	@AppStorage("defaultHaptic") private var defaultHapticRaw = BipHaptic.notification.rawValue
+
 	init(config: BipTimerConfig?, onSave: @escaping (BipTimerConfig) -> Void) {
 		_config = State(initialValue: config ?? BipTimerConfig())
 		self.onSave = onSave
@@ -62,6 +65,15 @@ struct ConfigureView: View {
 		}
 		.navigationTitle(config.name.isEmpty ? "New Timer" : config.name)
 		.navigationBarTitleDisplayMode(.inline)
+		.onAppear {
+			// Apply user's default sound/haptic when creating a new timer
+			if config.name == "New Timer" {
+				config.soundID = defaultSound
+				if let haptic = BipHaptic(rawValue: defaultHapticRaw) {
+					config.hapticType = haptic
+				}
+			}
+		}
 		.toolbar {
 			ToolbarItem(placement: .cancellationAction) {
 				Button("Cancel") { dismiss() }
