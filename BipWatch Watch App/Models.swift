@@ -3,7 +3,7 @@ import SwiftUI
 import Combine
 
 // MARK: - Constants
-let APP_GROUP_ID = "group.com.yourname.bip"
+let APP_GROUP_ID = "group.com.jorisdebeer.Bip"
 
 // MARK: - Phase Model
 public struct BipPhase: Identifiable, Codable, Hashable {
@@ -189,17 +189,32 @@ public class BipStore: ObservableObject {
 
 	public init() {
 		defaults = UserDefaults(suiteName: APP_GROUP_ID) ?? .standard
-		checkVersion()
-		load()
-		if configs.isEmpty { addSampleConfigs() }
-	}
-	
-	private func checkVersion() {
-		let savedVersion = defaults.integer(forKey: "configVersion")
-		if savedVersion < configVersion {
-			// Clear old data and force regeneration
-			defaults.removeObject(forKey: "bipConfigs")
-			defaults.set(configVersion, forKey: "configVersion")
+		// Load on background thread to avoid blocking UI with app group I/O
+		let defaults = self.defaults
+		let configVersion = self.configVersion
+		DispatchQueue.global(qos: .userInitiated).async {
+			// Version check
+			let savedVersion = defaults.integer(forKey: "configVersion")
+			if savedVersion < configVersion {
+				defaults.removeObject(forKey: "bipConfigs")
+				defaults.set(configVersion, forKey: "configVersion")
+			}
+			// Load configs
+			var configs: [BipTimerConfig] = []
+			if let data = defaults.data(forKey: "bipConfigs"),
+			   let decoded = try? JSONDecoder().decode([BipTimerConfig].self, from: data) {
+				configs = decoded
+			}
+			// Generate samples on first launch
+			if configs.isEmpty {
+				configs = Self.makeSampleConfigs()
+				if let data = try? JSONEncoder().encode(configs) {
+					defaults.set(data, forKey: "bipConfigs")
+				}
+			}
+			DispatchQueue.main.async {
+				self.configs = configs
+			}
 		}
 	}
 
@@ -207,12 +222,6 @@ public class BipStore: ObservableObject {
 		if let data = try? JSONEncoder().encode(configs) {
 			defaults.set(data, forKey: "bipConfigs")
 		}
-	}
-
-	private func load() {
-		guard let data = defaults.data(forKey: "bipConfigs"),
-			  let decoded = try? JSONDecoder().decode([BipTimerConfig].self, from: data) else { return }
-		configs = decoded
 	}
 
 	public func add(_ config: BipTimerConfig) {
@@ -232,8 +241,8 @@ public class BipStore: ObservableObject {
 		save()
 	}
 
-	private func addSampleConfigs() {
-		configs = [
+	private static func makeSampleConfigs() -> [BipTimerConfig] {
+		[
 			BipTimerConfig(name: "Hockey Game", phases: [
 				BipPhase(label: "First Half", duration: 25 * 60),
 				BipPhase(label: "Half Time", duration: 5 * 60),
@@ -245,6 +254,5 @@ public class BipStore: ObservableObject {
 			], repeatCount: 3),
 			BipTimerConfig(name: "Quick Intervals", phases: BipPhase.defaultWorkRest(work: 10 * 60, rest: 2 * 60))
 		]
-		save()
 	}
 }
