@@ -20,6 +20,8 @@ public class BipEngine: ObservableObject {
 
 	// MARK: Start
 	public func start(config: BipTimerConfig) {
+		timer?.invalidate()
+		timer = nil
 		self.config = config
 		state = BipSessionState(
 			configID: config.id,
