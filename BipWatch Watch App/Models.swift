@@ -42,6 +42,22 @@ public struct BipTimerConfig: Identifiable, Codable, Hashable {
 		self.soundID = soundID
 		self.hapticType = hapticType
 	}
+	
+	// Custom Codable implementation to handle old data without soundID/hapticType
+	enum CodingKeys: String, CodingKey {
+		case id, name, phases, repeatCount, soundID, hapticType
+	}
+	
+	public init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		id = try container.decode(UUID.self, forKey: .id)
+		name = try container.decode(String.self, forKey: .name)
+		phases = try container.decode([BipPhase].self, forKey: .phases)
+		repeatCount = try container.decode(Int.self, forKey: .repeatCount)
+		// Provide defaults for new fields if they don't exist
+		soundID = try container.decodeIfPresent(String.self, forKey: .soundID) ?? "Bip"
+		hapticType = try container.decodeIfPresent(BipHaptic.self, forKey: .hapticType) ?? .notification
+	}
 
 	public var totalCycleDuration: TimeInterval {
 		phases.reduce(0) { $0 + $1.duration }
@@ -82,6 +98,52 @@ public struct BipSessionState: Codable {
 	public var startedAt: Date?
 	public var soundID: String
 	public var hapticType: BipHaptic
+	
+	// Custom Codable implementation to handle old data without soundID/hapticType
+	enum CodingKeys: String, CodingKey {
+		case configID, configName, isRunning, isPaused, currentPhaseIndex
+		case currentPhaseLabel, currentPhaseElapsed, currentPhaseDuration
+		case cycleCount, totalRepeatCount, bipLog, startedAt, soundID, hapticType
+	}
+	
+	public init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		configID = try container.decode(UUID.self, forKey: .configID)
+		configName = try container.decode(String.self, forKey: .configName)
+		isRunning = try container.decode(Bool.self, forKey: .isRunning)
+		isPaused = try container.decode(Bool.self, forKey: .isPaused)
+		currentPhaseIndex = try container.decode(Int.self, forKey: .currentPhaseIndex)
+		currentPhaseLabel = try container.decode(String.self, forKey: .currentPhaseLabel)
+		currentPhaseElapsed = try container.decode(TimeInterval.self, forKey: .currentPhaseElapsed)
+		currentPhaseDuration = try container.decode(TimeInterval.self, forKey: .currentPhaseDuration)
+		cycleCount = try container.decode(Int.self, forKey: .cycleCount)
+		totalRepeatCount = try container.decode(Int.self, forKey: .totalRepeatCount)
+		bipLog = try container.decode([BipLogEntry].self, forKey: .bipLog)
+		startedAt = try container.decodeIfPresent(Date.self, forKey: .startedAt)
+		// Provide defaults for new fields if they don't exist
+		soundID = try container.decodeIfPresent(String.self, forKey: .soundID) ?? "Bip"
+		hapticType = try container.decodeIfPresent(BipHaptic.self, forKey: .hapticType) ?? .notification
+	}
+	
+	public init(configID: UUID, configName: String, isRunning: Bool, isPaused: Bool,
+				currentPhaseIndex: Int, currentPhaseLabel: String, currentPhaseElapsed: TimeInterval,
+				currentPhaseDuration: TimeInterval, cycleCount: Int, totalRepeatCount: Int,
+				bipLog: [BipLogEntry], startedAt: Date?, soundID: String, hapticType: BipHaptic) {
+		self.configID = configID
+		self.configName = configName
+		self.isRunning = isRunning
+		self.isPaused = isPaused
+		self.currentPhaseIndex = currentPhaseIndex
+		self.currentPhaseLabel = currentPhaseLabel
+		self.currentPhaseElapsed = currentPhaseElapsed
+		self.currentPhaseDuration = currentPhaseDuration
+		self.cycleCount = cycleCount
+		self.totalRepeatCount = totalRepeatCount
+		self.bipLog = bipLog
+		self.startedAt = startedAt
+		self.soundID = soundID
+		self.hapticType = hapticType
+	}
 
 	public var timeRemaining: TimeInterval {
 		max(0, currentPhaseDuration - currentPhaseElapsed)
