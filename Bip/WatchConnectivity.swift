@@ -19,7 +19,7 @@ public class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDele
 			self.activateIfNeeded()
 		}
 	}
-	
+
 	private func activateIfNeeded() {
 		guard !isActivated, WCSession.isSupported() else { return }
 		isActivated = true
