@@ -80,3 +80,6 @@ Search for APP_GROUP_ID in Models.swift and replace with your actual group ID.
 
 After installing on device, long-press your watch face → Edit → Complications, then select Bip from the list. The complication shows current phase + time remaining.
 
+## Roadmap
+
+See [To Do list](TODO.md)

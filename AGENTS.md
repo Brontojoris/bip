@@ -175,3 +175,8 @@ Requires `ComplicationController.swift`. Complication shows current phase label 
 - [ ] Needs to sync to watch? → Ensure state serialized in `BipSessionState`, wired in `WatchConnectivityManager`
 - [ ] Test on device first (simulator haptics unreliable)
 
+## Roadmap
+
+See [To Do list](TODO.md)
+
+
