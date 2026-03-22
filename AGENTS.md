@@ -53,6 +53,14 @@ phase complete? → advancePhase() → emit onBip callback → onComplete() when
 
 ## Critical Developer Workflows
 
+### Git Workflow
+
+* **Do not use worktrees** or submodules. If there is a conflict with the Claude Desktop or Claude CLI configuration, stop and ask the user before continuing.
+* Work on 1 branch at a time.
+* Work on 1 feature or fix at a time.
+* Use clear, short branch names. Prefer `feature/`, `fix/`, `refactor/` prefixes.
+* **Never merge to main.**
+
 ### Build & Run
 
 **iOS:** Standard Xcode build. Ensure App Group capability signed (Signing & Capabilities → App Groups).
