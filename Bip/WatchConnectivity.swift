@@ -37,7 +37,12 @@ public class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDele
 			return
 		}
 		if let data = try? JSONEncoder().encode(state) {
-			WCSession.default.sendMessage([WatchMessage.sessionState: data], replyHandler: nil)
+			WCSession.default.sendMessage([WatchMessage.sessionState: data], replyHandler: nil) { error in
+				// Fallback to application context if sendMessage fails
+				if let data = try? JSONEncoder().encode(state) {
+					try? WCSession.default.updateApplicationContext([WatchMessage.sessionState: data])
+				}
+			}
 		}
 	}
 
@@ -63,6 +68,14 @@ public class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDele
 				self.sessionState = state
 			}
 			if let cmd = message[WatchMessage.command] as? String {
+				self.onCommand?(cmd)
+			}
+		}
+	}
+
+	public func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
+		DispatchQueue.main.async {
+			if let cmd = userInfo[WatchMessage.command] as? String {
 				self.onCommand?(cmd)
 			}
 		}
