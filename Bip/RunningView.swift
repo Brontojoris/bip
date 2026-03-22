@@ -3,6 +3,7 @@ import SwiftUI
 struct RunningView: View {
 	@EnvironmentObject var engine: BipEngine
 	@EnvironmentObject var connectivity: WatchConnectivityManager
+	@Environment(\.dismiss) private var dismiss
 	@State private var lastPhaseIndex = -1
 	@State private var lastCycleCount = -1
 
@@ -72,6 +73,9 @@ struct RunningView: View {
 		}
 		.onChange(of: state.isRunning) {
 			connectivity.sendSessionState(state)
+			if !state.isRunning {
+				dismiss()
+			}
 		}
 		.onChange(of: state.isPaused) {
 			connectivity.sendSessionState(state)
