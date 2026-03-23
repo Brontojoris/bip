@@ -92,11 +92,18 @@ struct ConfigureView: View {
 // MARK: - Phase Row
 struct PhaseRowView: View {
 	@Binding var phase: BipPhase
-	@State private var durationMinutes: Double
+	@State private var minutes: Int
+	@State private var seconds: Int
 
 	init(phase: Binding<BipPhase>) {
 		_phase = phase
-		_durationMinutes = State(initialValue: phase.wrappedValue.duration / 60)
+		let total = Int(phase.wrappedValue.duration)
+		_minutes = State(initialValue: total / 60)
+		_seconds = State(initialValue: (total % 60) / 5 * 5)
+	}
+
+	private var secondsRange: ClosedRange<Int> {
+		minutes == 0 ? 5...55 : 0...55
 	}
 
 	var body: some View {
@@ -104,12 +111,19 @@ struct PhaseRowView: View {
 			TextField("Phase label", text: $phase.label)
 				.font(.body)
 			HStack {
-				Slider(value: $durationMinutes, in: 0.5...120, step: 0.5)
-					.onChange(of: durationMinutes) { phase.duration = durationMinutes * 60 }
+				Stepper("\(minutes)m", value: $minutes, in: 0...120)
+				Stepper("\(seconds)s", value: $seconds, in: secondsRange, step: 5)
 				Text(formatDuration(phase.duration))
 					.font(.system(.caption, design: .monospaced))
 					.foregroundStyle(.secondary)
 					.frame(width: 56, alignment: .trailing)
+			}
+			.onChange(of: minutes) {
+				if minutes == 0 && seconds < 5 { seconds = 5 }
+				phase.duration = TimeInterval(minutes * 60 + seconds)
+			}
+			.onChange(of: seconds) {
+				phase.duration = TimeInterval(minutes * 60 + seconds)
 			}
 		}
 		.padding(.vertical, 4)
