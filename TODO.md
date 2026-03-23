@@ -18,6 +18,7 @@ This file is a list of ideas and improvements to be made to the Bip and BipWatch
 * [ ] BipWatch UI defect: Red heading "Quick Intervals" is overlaid on to of the "Rest" word.
 * [x] BipWatch timer doesn't actually count down.
 * [ ] Feature: Display a list of available timers in the BipWatch app.
+* [ ] Modernise watch complication: replace deprecated ClockKit with WidgetKit.
 
 | #   | TODO                                         | Complexity            |
 | --- |----------------------------------------------| --------------------- |
@@ -37,6 +38,7 @@ This file is a list of ideas and improvements to be made to the Bip and BipWatch
 | 14  | Watch: red heading overlays phase label      | Low                   |
 | 15  | Watch: timer doesn't count down              | Medium                |
 | 16  | Watch: display list of available timers      | Medium                |
+| 17  | Watch: modernise complication (WidgetKit)    | High                  |
 
 ## User Feedback
 
