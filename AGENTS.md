@@ -178,6 +178,15 @@ Requires `ComplicationController.swift`. Complication shows current phase label 
 - [ ] Needs to sync to watch? → Ensure state serialized in `BipSessionState`, wired in `WatchConnectivityManager`
 - [ ] Test on device first (simulator haptics unreliable)
 
+## User Testing Notes
+
+See [User Testing document](docs/user-testing.md) for real-world testing observations:
+- Sound more important than haptic; haptic often unnoticed
+- Watch component underperforming (timer display, countdown issues)
+- iOS background kills app after a couple of minutes (local notifications help, Live Activities may be needed)
+- User wants audio ducking when music is playing
+- UI feels utilitarian; desires more personality
+
 ## Roadmap
 
 See [To Do list](TODO.md)

@@ -14,9 +14,9 @@ This file is a list of ideas and improvements to be made to the Bip and BipWatch
 * [ ] Allow the user to swipe to delete the currently active timer.
 * [ ] Retain timer settings between app installs/upgrades.
 * [x] When the Bip app is in the background, notification sounds and haptics aren't triggered.
-* [ ] BipWatch does not display a timer until the Rest phase is triggered.
+* [x] BipWatch does not display a timer until the Rest phase is triggered.
 * [ ] BipWatch UI defect: Red heading "Quick Intervals" is overlaid on to of the "Rest" word.
-* [ ] BipWatch timer doesn't actually count down.
+* [x] BipWatch timer doesn't actually count down.
 * [ ] Feature: Display a list of available timers in the BipWatch app.
 
 | #   | TODO                                         | Complexity            |
@@ -37,3 +37,7 @@ This file is a list of ideas and improvements to be made to the Bip and BipWatch
 | 14  | Watch: red heading overlays phase label      | Low                   |
 | 15  | Watch: timer doesn't count down              | Medium                |
 | 16  | Watch: display list of available timers      | Medium                |
+
+## User Feedback
+
+See [User Testing document](./docs/user-testing.md)

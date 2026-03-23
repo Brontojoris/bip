@@ -1,7 +1,7 @@
 # 13 — BipWatch Does Not Display Timer Until Rest Phase
 
 ## Status
-- [ ] Implemented
+- [x] Implemented
 
 ## Complexity
 **Medium**
