@@ -20,25 +20,25 @@ This file is a list of ideas and improvements to be made to the Bip and BipWatch
 * [ ] Feature: Display a list of available timers in the BipWatch app.
 * [ ] Modernise watch complication: replace deprecated ClockKit with WidgetKit.
 
-| #   | TODO                                         | Complexity            |
-| --- |----------------------------------------------| --------------------- |
-| 01  | Unresponsive main list on launch             | Low                   |
-| 02  | Add edit/pencil icon to list items           | Low                   |
-| 03  | Add stop button/icon to active timer         | Low                   |
-| 04  | Make stop action more obvious in RunningView | Low                   |
-| 05  | ~~Reconsider stop = delete behaviour~~       | Low (design decision) |
-| 06  | Visual clock UI for time picking             | High                  |
-| 07  | Allow times shorter than 30 seconds          | Low                   |
-| 08  | Improve haptics                              | Medium                |
-| 09  | Fix skip button arc in progress ring         | Medium                |
-| 10  | Swipe to delete active timer                 | Low                   |
-| 11  | Retain settings across installs              | Medium                |
-| 12  | Background notification sounds and haptics   | High                  |
-| 13  | Watch: no display until Rest phase           | Medium                |
-| 14  | Watch: red heading overlays phase label      | Low                   |
-| 15  | Watch: timer doesn't count down              | Medium                |
-| 16  | Watch: display list of available timers      | Medium                |
-| 17  | Watch: modernise complication (WidgetKit)    | High                  |
+| #   | TODO                                           | Complexity            |
+| --- |------------------------------------------------| --------------------- |
+| 01  | Unresponsive main list on launch               | Low                   |
+| 02  | ~~Add edit/pencil icon to list items~~         | Low                   |
+| 03  | Add stop button/icon to active timer           | Low                   |
+| 04  | Make stop action more obvious in RunningView   | Low                   |
+| 05  | ~~Reconsider stop = delete behaviour~~         | Low (design decision) |
+| 06  | Visual clock UI for time picking               | High                  |
+| 07  | ~~Allow times shorter than 30 seconds~~        | Low                   |
+| 08  | Improve haptics                                | Medium                |
+| 09  | Fix skip button arc in progress ring           | Medium                |
+| 10  | Swipe to delete active timer                   | Low                   |
+| 11  | Retain settings across installs                | Medium                |
+| 12  | ~~Background notification sounds and haptics~~ | High                  |
+| 13  | ~~Watch: no display until Rest phase~~         | Medium                |
+| 14  | Watch: red heading overlays phase label        | Low                   |
+| 15  | ~~Watch: timer doesn't count down~~            | Medium                |
+| 16  | Watch: display list of available timers        | Medium                |
+| 17  | Watch: modernise complication (WidgetKit)      | High                  |
 
 ## User Feedback
 
