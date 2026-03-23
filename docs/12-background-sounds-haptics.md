@@ -1,7 +1,7 @@
 # 12 — Background Notification Sounds and Haptics
 
 ## Status
-- [ ] Implemented
+- [x] Implemented
 
 ## Complexity
 **High**

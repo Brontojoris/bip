@@ -15,6 +15,8 @@ public class BipEngine: ObservableObject {
 
 	public var onBip: ((BipSessionState, BipTimerConfig) -> Void)?
 	public var onComplete: (() -> Void)?
+	public var onStart: ((BipSessionState, BipTimerConfig) -> Void)?
+	public var onStop: (() -> Void)?
 
 	public init() {}
 
@@ -40,6 +42,7 @@ public class BipEngine: ObservableObject {
 			hapticType: config.hapticType
 		)
 		scheduleTimer()
+		onStart?(state, config)
 	}
 
 	// MARK: Stop
@@ -48,6 +51,7 @@ public class BipEngine: ObservableObject {
 		timer = nil
 		state.isRunning = false
 		state.isPaused = false
+		onStop?()
 	}
 
 	// MARK: Pause / Resume
