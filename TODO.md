@@ -13,7 +13,7 @@ This file is a list of ideas and improvements to be made to the Bip and BipWatch
 * [ ] When pressing the Skip button on the RunningView, the line segment in the graph looks bad. It should neatly complete the circle to make it clear to the user that the timer has progressed to the next phase.
 * [ ] Allow the user to swipe to delete the currently active timer.
 * [ ] Retain timer settings between app installs/upgrades.
-* [ ] When the Bip app is in the background, notification sounds and haptics aren't triggered.
+* [x] When the Bip app is in the background, notification sounds and haptics aren't triggered.
 * [ ] BipWatch does not display a timer until the Rest phase is triggered.
 * [ ] BipWatch UI defect: Red heading "Quick Intervals" is overlaid on to of the "Rest" word.
 * [ ] BipWatch timer doesn't actually count down.
@@ -32,3 +32,8 @@ This file is a list of ideas and improvements to be made to the Bip and BipWatch
 | 09  | Fix skip button arc in progress ring         | Medium                |
 | 10  | Swipe to delete active timer                 | Low                   |
 | 11  | Retain settings across installs              | Medium                |
+| 12  | Background notification sounds and haptics   | High                  |
+| 13  | Watch: no display until Rest phase           | Medium                |
+| 14  | Watch: red heading overlays phase label      | Low                   |
+| 15  | Watch: timer doesn't count down              | Medium                |
+| 16  | Watch: display list of available timers      | Medium                |

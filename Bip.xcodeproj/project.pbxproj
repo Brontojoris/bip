@@ -73,16 +73,6 @@
 		A98025242F6D125C00E81C84 /* BipWatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BipWatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		A93F254A2F701CA1001317A3 /* Exceptions for "BipWatch Watch App" folder in "BipWatch Watch App" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"BipWatch-Watch-App-Info.plist",
-			);
-			target = A980250D2F6D125800E81C84 /* BipWatch Watch App */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A98024E22F6D120E00E81C84 /* Bip */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -101,9 +91,6 @@
 		};
 		A980250F2F6D125800E81C84 /* BipWatch Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				A93F254A2F701CA1001317A3 /* Exceptions for "BipWatch Watch App" folder in "BipWatch Watch App" target */,
-			);
 			path = "BipWatch Watch App";
 			sourceTree = "<group>";
 		};

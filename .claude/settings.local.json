@@ -4,7 +4,9 @@
       "Bash(xcodebuild -scheme Bip -destination 'platform=iOS Simulator,name=iPhone 16' build)",
       "Bash(xcodebuild -scheme Bip -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(grep -E \"\\\\.swift$\")",
+      "Bash(git checkout:*)"
     ]
   }
 }
