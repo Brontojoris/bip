@@ -19,7 +19,17 @@ struct HomeView: View {
 
 				Section("Timers") {
 					ForEach(store.configs) { config in
-						TimerRowView(config: config)
+						HStack {
+							TimerRowView(config: config)
+							Spacer()
+							Button {
+								editingConfig = config
+							} label: {
+								Image(systemName: "pencil")
+									.foregroundStyle(.secondary)
+							}
+							.buttonStyle(.plain)
+						}
 							.contentShape(Rectangle())
 							.onTapGesture { startTimer(config) }
 							.swipeActions(edge: .trailing) {

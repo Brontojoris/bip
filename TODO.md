@@ -3,7 +3,7 @@
 This file is a list of ideas and improvements to be made to the Bip and BipWatch apps.
 
 * [ ] Unresponsive main list immediately after opening the app.
-* [ ] Add edit/pencil icon to each item in the main list.
+* [x] Add edit/pencil icon to each item in the main list.
 * [ ] Add stop button or icon to the current active timer.
 * [ ] Or when tapping the stop button on the timer RunningView make it more obvious that the timer is stopped and deleted, and return to the main list.
 * [x] Consider whether stopping a timer should really delete it?
