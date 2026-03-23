@@ -1,7 +1,7 @@
 # 07 — Allow Phase Durations Shorter Than 30 Seconds
 
 ## Status
-- [ ] Implemented
+- [x] Implemented
 
 ## Complexity
 **Low**

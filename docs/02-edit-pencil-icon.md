@@ -1,7 +1,7 @@
 # 02 — Edit/Pencil Icon on List Items
 
 ## Status
-- [ ] Implemented
+- [x] Implemented
 
 ## Complexity
 **Low**
