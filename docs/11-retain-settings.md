@@ -1,7 +1,10 @@
 # 11 — Retain Timer Settings Across App Installs/Upgrades
 
 ## Status
-- [ ] Implemented
+- [x] Code implemented (Option B — iCloud Key-Value Store)
+- [ ] Blocked: requires paid Apple Developer Program membership to enable iCloud capability
+
+Code changes live on branch `feature/todo-11-retain-settings.md` and compile successfully, but cannot be tested or deployed until the iCloud entitlement is available.
 
 ## Complexity
 **Medium**
@@ -9,10 +12,12 @@
 ## Problem
 Timer configurations are stored in App Group `UserDefaults` (`group.com.jorisdebeer.Bip`). While these persist across app *updates*, they are wiped when the app is *uninstalled*. Users lose all their custom timers if they reinstall the app (e.g., after a device restore, a new device, or accidentally deleting the app).
 
-## Files to Touch
-- `Bip/Models.swift` (`BipStore`) — add iCloud KV sync layer
-- `Bip/BipApp.swift` — subscribe to iCloud change notifications
-- `Bip.xcodeproj` — enable iCloud capability (Key-Value Storage)
+## Files Changed
+- `Bip/Models.swift` (`BipStore`) — dual-writes to `UserDefaults` + `NSUbiquitousKeyValueStore`; loads from iCloud first with local fallback; migrates existing local data to iCloud; listens for `didChangeExternallyNotification` to sync changes from other devices
+- `Bip/Bip.entitlements` — added `com.apple.developer.ubiquity-kvstore-identifier`
+
+## Remaining Manual Step (requires paid Apple Developer account)
+In Xcode: **Bip target → Signing & Capabilities → + Capability → iCloud → check Key-value storage**. This regenerates the provisioning profile to include the iCloud entitlement. Personal Development teams cannot enable iCloud capabilities.
 
 ## Options
 

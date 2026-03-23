@@ -7,7 +7,9 @@
       "Bash(git commit:*)",
       "Bash(grep -E \"\\\\.swift$\")",
       "Bash(git checkout:*)",
-      "Bash(git pull:*)"
+      "Bash(git pull:*)",
+      "Bash(xcodebuild -scheme Bip -destination 'generic/platform=iOS' build)",
+      "Bash(xcodebuild -scheme Bip -destination 'generic/platform=iOS' build CODE_SIGNING_ALLOWED=NO)"
     ]
   }
 }

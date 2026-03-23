@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A912C0902F6D1D240079EF30 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A912C08F2F6D1D240079EF30 /* README.md */; };
 		A980252E2F6D125C00E81C84 /* BipWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = A980250E2F6D125800E81C84 /* BipWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A9D862E12F7163FF00441CEB /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = A9D862E02F7163FF00441CEB /* TODO.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		A980250E2F6D125800E81C84 /* BipWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BipWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A980251A2F6D125C00E81C84 /* BipWatch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BipWatch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A98025242F6D125C00E81C84 /* BipWatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BipWatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9D862E02F7163FF00441CEB /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -160,7 +162,6 @@
 		A98024D72F6D120E00E81C84 = {
 			isa = PBXGroup;
 			children = (
-				A9D862512F71597700441CEB /* docs */,
 				A98024E22F6D120E00E81C84 /* Bip */,
 				A98024F02F6D121000E81C84 /* BipTests */,
 				A98024FA2F6D121000E81C84 /* BipUITests */,
@@ -168,7 +169,9 @@
 				A980251D2F6D125C00E81C84 /* BipWatch Watch AppTests */,
 				A98025272F6D125C00E81C84 /* BipWatch Watch AppUITests */,
 				A98024E12F6D120E00E81C84 /* Products */,
+				A9D862512F71597700441CEB /* docs */,
 				A912C08F2F6D1D240079EF30 /* README.md */,
+				A9D862E02F7163FF00441CEB /* TODO.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -391,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A912C0902F6D1D240079EF30 /* README.md in Resources */,
+				A9D862E12F7163FF00441CEB /* TODO.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
