@@ -6,7 +6,7 @@ This file is a list of ideas and improvements to be made to the Bip and BipWatch
 * [x] [Add edit/pencil icon to each item in the main list](./docs/02-edit-pencil-icon.md).
 * [ ] [Add stop button or icon to the current active timer](./docs/03-stop-button-active-timer.md).
 * [ ] [Or when tapping the stop button on the timer RunningView make it more obvious that the timer is stopped and deleted, and return to the main list](./docs/04-stop-action-feedback.md).
-* [x] [Consider whether stopping a timer should really delete it?](.docs/05-stop-vs-delete-design.md)
+* [x] [Consider whether stopping a timer should really delete it?](./docs/05-stop-vs-delete-design.md)
 * [ ] [Use a more visual interactive clock UI for choosing the times instead of a slider](./docs/06-clock-ui-time-picker.md).
 * [x] [Allow for shorter times than 30 seconds](./docs/07-shorter-times.md).
 * [ ] [Improve the haptics. Stronger/more obvious](./docs/08-improve-haptics.md).
