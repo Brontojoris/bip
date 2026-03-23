@@ -32,3 +32,8 @@ This file is a list of ideas and improvements to be made to the Bip and BipWatch
 | 09  | Fix skip button arc in progress ring         | Medium                |
 | 10  | Swipe to delete active timer                 | Low                   |
 | 11  | Retain settings across installs              | Medium                |
+| 12  | Background notification sounds and haptics   | High                  |
+| 13  | Watch: no display until Rest phase           | Medium                |
+| 14  | Watch: red heading overlays phase label      | Low                   |
+| 15  | Watch: timer doesn't count down              | Medium                |
+| 16  | Watch: display list of available timers      | Medium                |
