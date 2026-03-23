@@ -1,7 +1,7 @@
 # 14 — BipWatch UI: Red Heading Overlays Phase Label
 
 ## Status
-- [ ] Implemented
+- [x] Implemented
 
 ## Complexity
 **Low**

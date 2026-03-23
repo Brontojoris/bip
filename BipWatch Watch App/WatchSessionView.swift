@@ -20,10 +20,18 @@ struct WatchSessionView: View {
     // MARK: - Running
     var runningView: some View {
         VStack(spacing: 4) {
+            Text(state.configName)
+                .font(.system(.caption2, weight: .semibold))
+                .foregroundStyle(.red)
+                .lineLimit(1)
+                .truncationMode(.tail)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
             Text(state.currentPhaseLabel)
                 .font(.system(.headline, weight: .medium))
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
             Text(timeString(state.timeRemaining))
                 .font(.system(size: 44, weight: .thin, design: .monospaced))
@@ -63,8 +71,7 @@ struct WatchSessionView: View {
             .padding(.top, 2)
         }
         .padding(.horizontal, 4)
-        .navigationTitle(state.configName)
-        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .navigationBar)
     }
 
     // MARK: - Idle
