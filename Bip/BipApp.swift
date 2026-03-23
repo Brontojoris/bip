@@ -6,6 +6,7 @@ struct BipApp: App {
 	@StateObject private var store = BipStore()
 	@StateObject private var engine = BipEngine()
 	@StateObject private var connectivity = WatchConnectivityManager.shared
+	@Environment(\.scenePhase) private var scenePhase
 
 	var body: some Scene {
 		WindowGroup {
@@ -16,6 +17,16 @@ struct BipApp: App {
 				.task {
 					BipNotificationManager.shared.requestPermission()
 					setupCallbacks()
+					// Cancel any orphaned notifications from a prior force-quit
+					if !engine.state.isRunning {
+						BipNotificationManager.shared.cancelAll()
+					}
+				}
+				.onChange(of: scenePhase) { _, newPhase in
+					if newPhase == .active, !engine.state.isRunning {
+						// App foregrounded with no timer — clear stale notifications
+						BipNotificationManager.shared.cancelAll()
+					}
 				}
 		}
 	}
