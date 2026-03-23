@@ -17,6 +17,7 @@ public class BipEngine: ObservableObject {
 	public var onComplete: (() -> Void)?
 	public var onStart: ((BipSessionState, BipTimerConfig) -> Void)?
 	public var onStop: (() -> Void)?
+	public var onTick: ((BipSessionState) -> Void)?
 
 	public init() {}
 
@@ -85,6 +86,7 @@ public class BipEngine: ObservableObject {
 	private func tick() {
 		guard state.isRunning, !state.isPaused else { return }
 		state.currentPhaseElapsed += tickInterval
+		onTick?(state)
 
 		if state.currentPhaseElapsed >= state.currentPhaseDuration {
 			advancePhase()

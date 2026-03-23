@@ -38,9 +38,20 @@ struct BipApp: App {
 			Self.beginBackgroundTask()
 		}
 
-		// Timer stopped: cancel pending notifications
-		engine.onStop = {
+		// Timer stopped: cancel pending notifications and notify watch
+		engine.onStop = { [connectivity] in
 			notifications.cancelAll()
+			connectivity.sendSessionState(BipSessionState.empty)
+		}
+
+		// Periodic tick: send state to watch throttled to ~1 second
+		var lastWatchSync: Date = .distantPast
+		engine.onTick = { [connectivity] state in
+			let now = Date()
+			if now.timeIntervalSince(lastWatchSync) >= 1.0 {
+				connectivity.sendSessionState(state)
+				lastWatchSync = now
+			}
 		}
 
 		connectivity.onCommand = { [engine] cmd in

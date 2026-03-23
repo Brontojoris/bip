@@ -1,7 +1,7 @@
 # 15 — BipWatch Timer Doesn't Count Down
 
 ## Status
-- [ ] Implemented
+- [x] Implemented
 
 ## Complexity
 **Medium**
