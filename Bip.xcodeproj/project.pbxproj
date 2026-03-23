@@ -104,6 +104,11 @@
 			path = "BipWatch Watch AppUITests";
 			sourceTree = "<group>";
 		};
+		A9D862512F71597700441CEB /* docs */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = docs;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +160,7 @@
 		A98024D72F6D120E00E81C84 = {
 			isa = PBXGroup;
 			children = (
+				A9D862512F71597700441CEB /* docs */,
 				A98024E22F6D120E00E81C84 /* Bip */,
 				A98024F02F6D121000E81C84 /* BipTests */,
 				A98024FA2F6D121000E81C84 /* BipUITests */,
@@ -198,6 +204,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				A98024E22F6D120E00E81C84 /* Bip */,
+				A9D862512F71597700441CEB /* docs */,
 			);
 			name = Bip;
 			packageProductDependencies = (

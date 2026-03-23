@@ -1,7 +1,9 @@
 # 01 — Unresponsive Main List on Launch
 
 ## Status
-- [ ] Implemented
+- [x] Implemented
+
+Resolved through other optimisations, but the root cause was likely the synchronous loading of `BipStore` data on the main thread during app launch. Moving this work to a background queue and ensuring any heavy initialisation (like `AudioHapticManager`) is deferred helped eliminate the unresponsive window.
 
 ## Complexity
 **Low**
