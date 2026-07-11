@@ -1,1 +1,17 @@
-build
+# Build output
+build/
+DerivedData/
+
+# macOS
+.DS_Store
+
+# Xcode per-user state
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+
+# JetBrains IDEs
+.idea/
+
+# Claude Code local (machine-specific) config
+.claude/settings.local.json
