@@ -185,7 +185,6 @@ public class BipStore: ObservableObject {
 	@Published public var configs: [BipTimerConfig] = []
 
 	private let defaults: UserDefaults
-	private let iCloud = NSUbiquitousKeyValueStore.default
 	private static let configsKey = "bipConfigs"
 	private let configVersion = 2 // Increment to force reset
 
@@ -193,7 +192,6 @@ public class BipStore: ObservableObject {
 		defaults = UserDefaults(suiteName: APP_GROUP_ID) ?? .standard
 		// Load on background thread to avoid blocking UI with app group I/O
 		let defaults = self.defaults
-		let iCloud = self.iCloud
 		let configVersion = self.configVersion
 		DispatchQueue.global(qos: .userInitiated).async {
 			// Version check
@@ -202,60 +200,28 @@ public class BipStore: ObservableObject {
 				defaults.removeObject(forKey: Self.configsKey)
 				defaults.set(configVersion, forKey: "configVersion")
 			}
-			// Load configs: prefer iCloud, fall back to local UserDefaults
+			// Load configs
 			var configs: [BipTimerConfig] = []
-			if let iCloudData = iCloud.data(forKey: Self.configsKey),
-			   let decoded = try? JSONDecoder().decode([BipTimerConfig].self, from: iCloudData),
-			   !decoded.isEmpty {
+			if let data = defaults.data(forKey: Self.configsKey),
+			   let decoded = try? JSONDecoder().decode([BipTimerConfig].self, from: data) {
 				configs = decoded
-			} else if let localData = defaults.data(forKey: Self.configsKey),
-					  let decoded = try? JSONDecoder().decode([BipTimerConfig].self, from: localData) {
-				configs = decoded
-				// Migrate existing local data up to iCloud
-				if let data = try? JSONEncoder().encode(configs) {
-					iCloud.set(data, forKey: Self.configsKey)
-					iCloud.synchronize()
-				}
 			}
 			// Generate samples on first launch
 			if configs.isEmpty {
 				configs = Self.makeSampleConfigs()
 				if let data = try? JSONEncoder().encode(configs) {
 					defaults.set(data, forKey: Self.configsKey)
-					iCloud.set(data, forKey: Self.configsKey)
-					iCloud.synchronize()
 				}
 			}
 			DispatchQueue.main.async {
 				self.configs = configs
 			}
 		}
-		// Listen for iCloud changes from other devices
-		NotificationCenter.default.addObserver(
-			self,
-			selector: #selector(iCloudDidChange(_:)),
-			name: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
-			object: iCloud
-		)
-		iCloud.synchronize()
-	}
-
-	@objc private func iCloudDidChange(_ notification: Notification) {
-		guard let data = iCloud.data(forKey: Self.configsKey),
-			  let decoded = try? JSONDecoder().decode([BipTimerConfig].self, from: data),
-			  !decoded.isEmpty else { return }
-		DispatchQueue.main.async {
-			self.configs = decoded
-			// Keep local UserDefaults in sync
-			self.defaults.set(data, forKey: Self.configsKey)
-		}
 	}
 
 	public func save() {
 		if let data = try? JSONEncoder().encode(configs) {
 			defaults.set(data, forKey: Self.configsKey)
-			iCloud.set(data, forKey: Self.configsKey)
-			iCloud.synchronize()
 		}
 	}
 
